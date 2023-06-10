@@ -49,8 +49,6 @@ namespace CLC.Controllers
                 return View("Error", e);
             }
         }
-
-
         
         [HttpPost]
         public ActionResult activateCell(string id, string x, string y)
@@ -156,18 +154,15 @@ namespace CLC.Controllers
 
             //returns view
             return Index();
-
-
-
         }
 
         [HttpPost]
-        public ActionResult onSaveButton(Grid grid, User user)
+        public ActionResult onSaveButton()
         {
             GameService service = new GameService();
-            service.saveGame(grid, user);
-
-            return View("Index");
+            service.saveGame(this);
+            service.removeGrid(this);
+            return Index();
         }
     }
 }

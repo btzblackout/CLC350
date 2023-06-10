@@ -8,25 +8,20 @@ namespace CLC.Models
     public class SavedGame
     {
         public int id { get; set; }
-        public int userId { get; set; }
         public int gridId { get; set; }
         public int rows { get; set; }
         public int cols { get; set; }
-        public DateTime date { get; set; }
-        public string serializedGame { get; set; }
 
         public SavedGame()
         {
 
         }
-        public SavedGame(int id, int userId, int gridId, int rows, int cols, DateTime date)
+        public SavedGame(int id, int gridId, int rows, int cols)
         {
             this.id = id;
-            this.userId = userId;
             this.gridId = gridId;
             this.rows = rows;
             this.cols = cols;
-            this.date = date;
         }
     }
 }

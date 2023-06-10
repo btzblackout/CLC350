@@ -13,18 +13,23 @@ namespace CLC.Services.Business.Game
     public class GameService
     {
 
-        public void saveGame(Grid grid, User user)
+        public void saveGame(Controller c)
         {
+            //Grab the user
+            User user = (User)c.Session["user"];
+            
             //Create a GameDAO object to call saveGrid method.
             GameDAO gameDAO = new GameDAO();
+            
+            //Grab the grid
+            Grid grid = gameDAO.findGrid(user);
+            
             
             //create an empty SavedGame object.
             SavedGame gameToSave = new SavedGame();
 
             //Populate the gameToSave
             gameToSave.gridId = grid.Id;
-            gameToSave.userId = user.Id;
-            gameToSave.date = DateTime.Now;
             gameToSave.rows = grid.Rows;
             gameToSave.cols = grid.Cols;
 
@@ -41,7 +46,7 @@ namespace CLC.Services.Business.Game
             }
 
             //pass the serialized game string to the DAO to be saved to the DB.
-            gameDAO.saveGame(serializedGame); 
+            gameDAO.saveGame(serializedGame, user.Id); 
         }
         public Grid findGrid(Controller c)
         {

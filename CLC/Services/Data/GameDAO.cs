@@ -290,10 +290,12 @@ namespace CLC.Services.Data.Game
 
 }
 
-        public void saveGame(string serializedGame)
+        public void saveGame(string serializedGame, int userId)
         {
             //print the serialized string to ensure it works properly.
-            System.Diagnostics.Debug.WriteLine(serializedGame);
+            System.Diagnostics.Debug.WriteLine(serializedGame + " " + userId);
+
+            
         }
 
     }
