@@ -173,5 +173,27 @@ namespace CLC.Controllers
             savedGames = service.loadGames(this);
             return View(savedGames);
         }
+
+        [HttpPost]
+        public ActionResult deleteSavedGame(int id)
+        {
+            GameService gameService = new GameService();
+            gameService.deleteSavedGame(id);
+
+            // Redirect to the desired action or view
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult PlaySavedGame(int userID, int gridID, int rows, int cols)
+        {
+            GameService gameService = new GameService();
+            gameService.playSavedGame(userID, gridID, rows, cols);
+
+            Grid g = gameService.findGrid(this);
+
+
+            //return game board view with grid model
+            return View("Game", g);
+        }
     }
 }

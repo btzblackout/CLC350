@@ -288,7 +288,7 @@ namespace CLC.Services.Data.Game
             }
 
 
-}
+        }
 
         public void saveGame(string serializedGame, int userId)
         {
@@ -376,5 +376,156 @@ namespace CLC.Services.Data.Game
             return savedGames;
         }
 
+        public void deleteSavedGame(int Id)
+        {
+            string query = "DELETE FROM dbo.SavedGames WHERE Id = @Id";
+
+            using (SqlConnection cn = new SqlConnection(conn))
+            using (SqlCommand cmd = new SqlCommand(query, cn))
+            {
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = Id;
+                cn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void playSavedGame(int userID, int gridID, int rows, int cols)
+        {
+            Grid g = null;
+
+            try
+            {
+
+                string query = "UPDATE dbo.grids SET ID=@id, ROWS = @Rows, COLS = @Cols WHERE USERID=@User_ID";
+
+                using (SqlConnection cn = new SqlConnection(conn))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add("@Rows", SqlDbType.Int, 11).Value = rows;
+                    cmd.Parameters.Add("@Cols", SqlDbType.Int, 11).Value = cols;
+                    cmd.Parameters.Add("@User_ID", SqlDbType.Int, 11).Value = userID;
+                   
+                    cmd.Parameters.Add("@id", SqlDbType.Int, 11).Value = gridID;
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    cn.Close();
+
+
+
+                }
+
+            }
+            catch (SqlException e)
+            {
+                throw e;
+            }
+
+        }
+        public List<SavedGame> AllGames()
+        {
+            //Create the list of games to return.
+            List<SavedGame> savedGames = new List<SavedGame>();
+
+            try
+            {
+                //Create the query
+                string query = "SELECT * FROM dbo.SavedGames";
+
+                //Create a placeholder SavedGame object.
+                SavedGame currentSavedGame;
+
+                //Create connection and command
+                using (SqlConnection cn = new SqlConnection(conn))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    //Open the connection
+                    cn.Open();
+
+                    //Execute command.
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    XmlSerializer deserializer = new XmlSerializer(typeof(SavedGame));
+                    while (reader.Read())
+                    {
+                    //Deserialize the XML
+                        using (TextReader tr = new StringReader((string)reader[3]))
+                        {
+                            currentSavedGame = (SavedGame)deserializer.Deserialize(tr);
+                        }
+
+                    //Re-set the Id of the savedgame.
+                        currentSavedGame.id = (int)reader[0];
+                        savedGames.Add(currentSavedGame);
+                     }
+
+                    //Close the connection
+                    cn.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            //Return the list of SavedGame objects.
+            return savedGames;
+        }
+
+        public SavedGame GetGameById(int id)
+        {
+
+            //Create the return object
+            SavedGame savedGame = new SavedGame();
+
+            try
+            {
+                //Create the query
+                string query = "SELECT * FROM dbo.SavedGames WHERE Id = @gameId";
+
+                //Create connection and command
+                using (SqlConnection cn = new SqlConnection(conn))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.Add("@gameId", SqlDbType.Int).Value = id;
+                    //Open the connection
+                    cn.Open();
+
+                    //Execute command.
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    XmlSerializer deserializer = new XmlSerializer(typeof(SavedGame));
+                    while (reader.Read())
+                    {
+                        //Deserialize the XML
+                        using (TextReader tr = new StringReader((string)reader[3]))
+                        {
+                            savedGame = (SavedGame)deserializer.Deserialize(tr);
+                        }
+
+                        //Re-set the Id of the savedgame.
+                        savedGame.id = (int)reader[0];
+                    }
+
+                    //Close the connection
+                    cn.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            //Return the SavedGame object.
+            return savedGame;
+        }
+
+        public List<SavedGame> DeleteGameById(int id)
+        {
+            //Call the deleteSavedGame method to delete the game from the DB.
+            deleteSavedGame(id);
+
+            //Send the remaining games back.
+            return AllGames();
+        }
     }
 }
