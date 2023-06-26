@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Web;
+﻿/*
+ * Grid.cs - Grid model class.
+ * Authors - Martin, Ryan, and Raymond
+ * Date - 06/25/2023
+ */
+using System;
 
 namespace CLC.Models
 {
     public class Grid
     {
-
-
-
-
+        // Declare the variables.
         private int id;
         private int rows;
         private int cols;
@@ -19,6 +17,7 @@ namespace CLC.Models
         private Boolean gameOver;
         private Cell[,] cells;
 
+        // Create the constructors.
         public Grid()
         {
 
@@ -30,11 +29,9 @@ namespace CLC.Models
             this.cols = cols;
             this.userid = userid;
             this.gameOver = gameOver;
-
-
-
         }
 
+        // Create the public getters and setters.
         public int Id { get => id; set => id = value; }
         public int Rows { get => rows; set => rows = value; }
         public int Cols { get => cols; set => cols = value; }

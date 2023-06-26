@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿/*
+ * Cell.cs - Cell model class.
+ * Authors - Martin, Ryan, and Raymond
+ * Date - 06/25/2023
+ */
+using System;
 
 namespace CLC.Models
 {
     public class Cell
     {
-
-
+        // Declare variables.
         private int id;
         private int x;
         private int y;
@@ -17,8 +18,7 @@ namespace CLC.Models
         private Boolean bomb;
         private Boolean isFlagged;
 
-
-
+        // Create constructors.
         public Cell()
         {
             id = -1;
@@ -41,6 +41,7 @@ namespace CLC.Models
             isFlagged = false;
         }
 
+        // Public getters and setters.
         public int Id { get => id; set => id = value; }
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
@@ -48,6 +49,5 @@ namespace CLC.Models
         public bool Visited { get => visited; set => visited = value; }
         public bool Bomb { get => bomb; set => bomb = value; }
         public bool IsFlagged { get => isFlagged; set => isFlagged = value; }   
-
     }
 }

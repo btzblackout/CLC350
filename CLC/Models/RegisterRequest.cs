@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * RegisterRequest.cs - RegisterRequest model class.
+ * Authors - Martin, Ryan, and Raymond
+ * Date - 06/25/2023
+ */
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace CLC.Models
 {
     public class RegisterRequest
     {
-
+        // Declare the variables.
         private string username;
         private string password;
         private string email;
@@ -18,6 +19,7 @@ namespace CLC.Models
         private int? age;
         private string state;
 
+        // Create the constructors.
         public RegisterRequest()
         {
             this.username = "";
@@ -28,9 +30,7 @@ namespace CLC.Models
             this.sex = "";
             this.age = 0;
             this.state = "";
-
         }
-
         public RegisterRequest(string username, string password, string email, string firstName, string lastName, string sex, int age, string state)
         {
             this.username = username;
@@ -43,6 +43,7 @@ namespace CLC.Models
             this.state = state;
         }
 
+        // Create the public getters and setters.
         [Required]
         [StringLength(20)]
         [RegularExpression(@"^[a-zA-Z0-9]+$")]

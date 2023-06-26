@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * LoginRequest.cs - LoginRequest model class.
+ * Authors - Martin, Ryan, and Raymond
+ * Date - 06/25/2023
+ */
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace CLC.Models
 {
     public class LoginRequest
     {
-
+        // Declare the variables.
         private string username;
         private string password;
 
+        // Create the constructors.
         public LoginRequest()
         {
         }
-
         public LoginRequest(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
 
-
-
+        // Create the public getters and setters
         [Required]
         [StringLength(20)]
         [RegularExpression(@"^[a-zA-Z0-9]+$")]

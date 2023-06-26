@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿/*
+ * User.cs - User model class.
+ * Authors - Martin, Ryan, and Raymond
+ * Date - 06/25/2023
+ */
+using System;
 
 namespace CLC.Models
 {
     [Serializable]
     public class User
     {
-
+        // Declare the variables.
         private int id;
         private string username;
         private string password;
@@ -19,7 +21,7 @@ namespace CLC.Models
         private int age;
         private string state;
 
-
+        // Create the constructors.
         public User()
         {
             this.id = -1;
@@ -31,9 +33,7 @@ namespace CLC.Models
             this.sex = "";
             this.age = 0;
             this.state = "";
-
         }
-
         public User(int id, string username, string password, string email, string firstName, string lastName, string sex, int age, string state)
         {
             this.id = id;
@@ -47,6 +47,7 @@ namespace CLC.Models
             this.state = state;
         }
 
+        // Create the public getters and setters.
         public int Id { get => id; set => id = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }

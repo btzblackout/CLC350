@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * SavedGame.cs - SavedGame model class.
+ * Authors - Martin, Ryan, and Raymond
+ * Date - 06/25/2023
+ */
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Web;
 
 namespace CLC.Models
 {
     public class SavedGame
     {
+        //Declare the variables and create public getters and setters.
         [DisplayName("Id number")]
         public int id { get; set; }
         public int userId { get; set; }
@@ -16,6 +19,7 @@ namespace CLC.Models
         public int cols { get; set; }
         public DateTime date { get; set; }
 
+        // Create the constructors.
         public SavedGame()
         {
 
